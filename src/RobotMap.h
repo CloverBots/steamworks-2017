@@ -19,5 +19,11 @@
 // number and the module. For example you with a rangefinder:
 //const int RANGE_FINDER_PORT = 1;
 //const int RANGE_FINDER_MODULE = 1;
-
+struct RobotMap{
+	const static u_int32_t
+	STAGEING_WHEEL = 1,
+	SHOOTING_WHEEL = 2,
+	SHOOTING_WHEEL_ENCODER = 3,
+	BIN_MOTOR = 4;
+};
 #endif

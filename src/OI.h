@@ -6,9 +6,12 @@
 class OI
 {
 private:
-
+	Joystick* pStick1;
+	JoystickButton* aButton;
 public:
+	Joystick* GetStick1();
 	OI();
+	~OI();
 };
 
 #endif
