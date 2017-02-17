@@ -8,6 +8,7 @@ shooter::shooter() :
 	Shooting_wheel = new CANTalon(RobotMap::SHOOTING_WHEEL);
 	ShooterSource = new CANPIDSource(Shooting_wheel, m_ENCODER_RATE);
 	ShooterController = new PIDController(m_P, m_I, m_D, ShooterSource, Shooting_wheel);
+
 }
 
 void shooter::InitDefaultCommand()
@@ -35,7 +36,6 @@ void shooter::SetPIDEnabled(bool enabled)
 	ShooterController->SetSetpoint(0.0f);
 	Shooting_wheel->Set(0.0f);
 	ShooterController->Reset();
-
 	if (enabled)
 		ShooterController->Enable();
 }
