@@ -23,6 +23,7 @@ public:
 	shooter();
 	void StageingWheel(float speed);
 	void ShooterWheel(float speed);
+	int GetShooterEncVel();
 	void BinSpeed(float speed);
 	void SetPIDEnabled(bool enabled);
 	void SetPID(float p, float i, float d);

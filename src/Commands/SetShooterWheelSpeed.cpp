@@ -13,7 +13,7 @@ void SetShooterWheelSpeed::Initialize()
 	CommandBase::shootersubsystem->SetPIDEnabled(true);
 	CommandBase::shootersubsystem->ShooterWheel(speed);
 while(true){
-	if(CommandBase::shootersubsystem->Shooting_wheel->GetEncVel() > 100){
+	if(CommandBase::shootersubsystem->GetShooterEncVel() > 100){
 		break;
 	}
 }

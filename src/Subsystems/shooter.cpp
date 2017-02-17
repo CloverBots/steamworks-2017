@@ -22,6 +22,10 @@ void shooter::ShooterWheel(float speed)
 	Shooting_wheel->Set(speed);
 }
 
+int shooter::GetShooterEncVel(){
+return Shooting_wheel->GetEncVel();
+}
+
 void shooter::StageingWheel(float speed)
 {
 	Stageing_wheel->Set(speed);
