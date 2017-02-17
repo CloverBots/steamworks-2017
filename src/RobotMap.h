@@ -1,0 +1,23 @@
+#ifndef ROBOTMAP_H
+#define ROBOTMAP_H
+
+#include "WPILib.h"
+
+struct RobotMap
+{
+	static const uint32_t
+		LEFT_FRONT_TALON = 3,
+		LEFT_REAR_TALON = 2,
+		RIGHT_FRONT_TALON = 8,
+		RIGHT_REAR_TALON = 7,
+		BIN_MOTOR = 6,
+		LIFT_SPIKE = 5,
+		GEAR_SPIKE = 4,
+		SHOOTER_MOTOR = 1,
+		COLLECTOR_MOTOR = 9,
+		STAGING_MOTOR = 10,
+		GEAR_OPEN_SWITCH = 1,
+		GEAR_CLOSED_SWITCH = 2;
+};
+
+#endif
