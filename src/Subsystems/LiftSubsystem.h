@@ -7,7 +7,7 @@
 
 class LiftSubsystem : public Subsystem {
 private:
-	DigitalOutput* m_pLiftMotor;
+	Relay* m_pLiftMotor;
 public:
 	LiftSubsystem();
 	void setMotor(bool b);

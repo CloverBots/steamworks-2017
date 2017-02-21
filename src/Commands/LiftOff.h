@@ -7,6 +7,8 @@
 class LiftOff : public CommandBase {
 public:
 	LiftOff();
+
+	void Initialize();
 	bool IsFinished() { return true; }
 };
 

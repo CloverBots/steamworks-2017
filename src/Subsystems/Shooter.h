@@ -4,6 +4,8 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../CANPIDSource.h"
+#include "CANTalon.h"
+
 class Shooter: public Subsystem
 {
 private:
@@ -16,8 +18,8 @@ private:
 	Talon* Stageing_wheel;
 	Talon* Bin;
 	CANTalon* Shooting_wheel;
-	CANPIDSource* ShooterSource;
-	PIDController* ShooterController;
+	//CANPIDSource* ShooterSource;
+	//PIDController* ShooterController;
 
 public:
 	Shooter();

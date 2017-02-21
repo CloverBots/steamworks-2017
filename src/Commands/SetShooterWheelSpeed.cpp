@@ -10,13 +10,12 @@ SetShooterWheelSpeed::SetShooterWheelSpeed(float speed) : speed(speed)
 // Called just before this Command runs the first time
 void SetShooterWheelSpeed::Initialize()
 {
-	CommandBase::shooterSubsystem->SetPIDEnabled(true);
 	CommandBase::shooterSubsystem->ShooterWheel(speed);
-	while(true){
-		if(CommandBase::shooterSubsystem->GetShooterEncVel() > 100){
-			break;
-		}
-	}
+//	while(true){
+//		if(CommandBase::shooterSubsystem->GetShooterEncVel() > 100){
+//			break;
+//		}
+//	}
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -28,7 +27,7 @@ void SetShooterWheelSpeed::Execute()
 // Make this return true when this Command no longer needs to run execute()
 bool SetShooterWheelSpeed::IsFinished()
 {
-	return false;
+	return true;
 }
 
 // Called once after isFinished returns true

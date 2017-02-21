@@ -9,12 +9,15 @@ class DriveSystem: public Subsystem
 private:
 
 	RobotDrive* m_pRobotDrive;
+	AnalogGyro* m_gyro;
 
 public:
 	DriveSystem();
 
 	void InitDefaultCommand();
 	void Drive(float speed, float strafe, float rotation);
+	void ResetGyro();
+	double GetGyroAngle();
 };
 
 #endif

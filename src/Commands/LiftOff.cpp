@@ -4,5 +4,9 @@ LiftOff::LiftOff() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(CommandBase::liftSubsystem.get());
+}
+
+void LiftOff::Initialize()
+{
 	liftSubsystem->setMotor(false);
 }

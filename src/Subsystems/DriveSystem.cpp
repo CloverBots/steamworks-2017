@@ -14,6 +14,8 @@ DriveSystem::DriveSystem() :
 	m_pRobotDrive->SetInvertedMotor(RobotDrive::MotorType::kFrontLeftMotor, true);
 	m_pRobotDrive->SetInvertedMotor(RobotDrive::MotorType::kRearLeftMotor, true);
 	m_pRobotDrive->SetSafetyEnabled(false);
+
+	m_gyro = new AnalogGyro(0);
 }
 
 void DriveSystem::InitDefaultCommand()
@@ -24,6 +26,16 @@ void DriveSystem::InitDefaultCommand()
 void DriveSystem::Drive(float speed, float strafe, float rotation)
 {
 	m_pRobotDrive->MecanumDrive_Cartesian(strafe, speed, rotation);
+}
+
+void DriveSystem::ResetGyro()
+{
+	m_gyro->Reset();
+}
+
+double DriveSystem::GetGyroAngle()
+{
+	return m_gyro->GetAngle();
 }
 
 // Put methods for controlling this subsystem

@@ -21,6 +21,6 @@ ShootSequence::ShootSequence()
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	AddSequential(new SetShooterWheelSpeed(1.0f));
-	AddSequential(new SetStageingWheelSpeed(-1.0f));
-	AddSequential(new SetBinSpeed(-1.0f));
+	AddSequential(new SetStageingWheelSpeed(1.0f));
+	AddSequential(new SetBinSpeed(1.0f));
 }

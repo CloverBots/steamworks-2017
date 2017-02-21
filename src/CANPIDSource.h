@@ -9,6 +9,7 @@
 #define SRC_CANPIDSOURCE_H_
 
 #include "WPILib.h"
+#include "CANTalon.h"
 
 class CANPIDSource : public PIDSource
 {

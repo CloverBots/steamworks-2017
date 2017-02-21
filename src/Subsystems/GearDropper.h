@@ -14,6 +14,7 @@ public:
 	void InitDefaultCommand();
 	void DropGear();
 	void CloseDoor();
+	void SetDoorDirection(Relay::Value direction);
 
 	Relay* GetSpike();
 	bool IsOpenTriggered();

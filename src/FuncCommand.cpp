@@ -1,39 +1,38 @@
-#include "SetStageingWheelSpeed.h"
+#include "FuncCommand.h"
 
-SetStageingWheelSpeed::SetStageingWheelSpeed(float speed) : speed(speed)
+FuncCommand::FuncCommand(std::function<void()> func) : m_func(func)
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(chassis);
-	Requires(CommandBase::shooterSubsystem.get());
 }
 
 // Called just before this Command runs the first time
-void SetStageingWheelSpeed::Initialize()
+void FuncCommand::Initialize()
 {
-	CommandBase::shooterSubsystem->StagingWheel(speed);
+	m_func();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SetStageingWheelSpeed::Execute()
+void FuncCommand::Execute()
 {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SetStageingWheelSpeed::IsFinished()
+bool FuncCommand::IsFinished()
 {
 	return true;
 }
 
 // Called once after isFinished returns true
-void SetStageingWheelSpeed::End()
+void FuncCommand::End()
 {
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SetStageingWheelSpeed::Interrupted()
+void FuncCommand::Interrupted()
 {
 
 }

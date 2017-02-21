@@ -7,6 +7,8 @@
 class LiftOn : public CommandBase {
 public:
 	LiftOn();
+
+	void Initialize();
 	bool IsFinished() { return true; }
 };
 

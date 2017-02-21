@@ -1,6 +1,6 @@
 #include "AlignWithTape.h"
 
-AlignWithTape::AlignWithTape()
+AlignWithTape::AlignWithTape() : m_throttle(0), m_rotation(0), m_framesLost(0)
 {
 	Requires(CommandBase::pDriveSystem.get());
 }
@@ -14,39 +14,30 @@ void AlignWithTape::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void AlignWithTape::Execute()
 {
-	int targetX = 0;
-	int targetY = 0;
+	cv::Point center = CommandBase::oi->GetGearCenter();
 
-	std::vector<double> centerXValues = CommandBase::oi->GetContourValues("centerX");
+	if (CommandBase::oi->GetGearContours().size() >= 2)
+	{
+		m_throttle = fmax(fmax(OI::CAMERA_Y_RES - center.y, 0) / (float)OI::CAMERA_Y_RES * m_MAX_THROTTLE, m_MIN_THROTTLE);
+		m_rotation = fmax(fmin((m_SENSITIVITY_X * ((float)center.x / (float)OI::CAMERA_X_RES)), m_MAX_ROTATION), -m_MAX_ROTATION);
 
-	if (centerXValues.size() > 0)
-		targetX = centerXValues[0] - CommandBase::oi->CAMERA_X_RES / 2;
-
-	std::vector<double> centerYValues = CommandBase::oi->GetContourValues("centerY");
-
-	if (centerYValues.size() > 0)
-		targetY = fmax(0, centerYValues[0] - m_VERTICAL_TARGET);
+		m_framesLost = 0;
+	}
+	else
+	{
+		m_framesLost++;
+	}
 
 	CommandBase::pDriveSystem->Drive(
-			-fmax(
-					fmin(
-							(m_SENSITIVITY *
-							((float)targetY / (float)CommandBase::oi->CAMERA_Y_RES)),
-					m_MAXPOWER),
-			-m_MAXPOWER),
+			m_throttle,
 			0.0f,
-			fmax(
-					fmin(
-							(m_SENSITIVITY *
-							((float)targetX / (float)CommandBase::oi->CAMERA_X_RES)),
-					m_MAXPOWER),
-			-m_MAXPOWER));
+			m_rotation);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AlignWithTape::IsFinished()
 {
-	return false;
+	return m_framesLost > m_TARGET_LOST_TIMEOUT;
 }
 
 // Called once after isFinished returns true
