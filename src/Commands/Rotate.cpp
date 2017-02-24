@@ -24,7 +24,7 @@ void Rotate::Execute() {
 	else if (currentAngle > m_targetAngle)
 		speed = -m_RATE;
 
-	std::cout << speed << std::endl;
+	//std::cout << currentAngle << std::endl;
 
 	CommandBase::pDriveSystem->Drive(0.0f, 0.0f, speed);
 }

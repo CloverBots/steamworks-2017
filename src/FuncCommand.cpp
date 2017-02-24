@@ -1,9 +1,9 @@
 #include "FuncCommand.h"
 
-FuncCommand::FuncCommand(std::function<void()> func) : m_func(func)
+FuncCommand::FuncCommand(std::function<void()> func, std::initializer_list<Subsystem*> requiredSubsystems) : m_func(func)
 {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(chassis);
+	for (auto subsystem : requiredSubsystems)
+		Requires(subsystem);
 }
 
 // Called just before this Command runs the first time

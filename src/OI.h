@@ -1,15 +1,15 @@
 #ifndef OI_H
 #define OI_H
 
+#include <TapeAlignment.h>
 #include "WPILib.h"
-#include "GearAlignment.h"
 #include <vector>
 
 class OI
 {
 public:
-	const static int CAMERA_X_RES = 640;
-	const static int CAMERA_Y_RES = 480;
+	const static int CAMERA_X_RES = 160;
+	const static int CAMERA_Y_RES = 120;
 
 	struct Contour
 	{
@@ -36,10 +36,7 @@ public:
 	Joystick* GetDriveStick();
 	Joystick* GetOperatorStick();
 
-	grip::GearAlignment* GetGearAlignment();
-
-	void ProcessGearAlignment();
-	void GearAlignmentThread();
+	grip::TapeAlignment* GetGearAlignment();
 
 	std::vector<double> GetContourValues(std::string value);
 	std::vector<Contour> GetGearContours();
@@ -49,6 +46,7 @@ private:
 
 	Joystick* m_pDriveStick;
 	Joystick* m_pOperatorStick;
+
 	JoystickButton* m_pXButton;
 	JoystickButton* m_pAButton;
 	JoystickButton* m_pYButton;
@@ -56,13 +54,31 @@ private:
 
 	JoystickButton* m_pDriveAButton;
 
-	grip::GearAlignment* m_pGearAlignment;
-	cs::UsbCamera m_usbCamera;
-	VisionRunner<grip::GearAlignment>* m_pVisionRunner;
+	cs::UsbCamera m_gearCamera;
+	cs::UsbCamera m_boilerCamera;
+
+	grip::TapeAlignment* m_pGearAlignment;
+	grip::TapeAlignment* m_pBoilerAlignment;
+
+	VisionRunner<grip::TapeAlignment>* m_pGearVisionRunner;
+	VisionRunner<grip::TapeAlignment>* m_pBoilerVisionRunner;
+
+	std::thread m_gearThread;
+	std::thread m_boilerThread;
+
+	std::thread m_visionThread;
 
 	std::shared_ptr<NetworkTable> m_pNetworkTable;
 
 	std::vector<Contour> m_contours;
+
+	std::mutex m_contourLock;
+
+	void GearAlignmentThread();
+	void BoilerAlignmentThread();
+
+	void ProcessGearAlignment();
+	void ProcessBoilerAlignment();
 };
 
 #endif

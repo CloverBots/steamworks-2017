@@ -1,11 +1,11 @@
-#include "GearAlignment.h"
+#include <TapeAlignment.h>
 /**
 * Initializes a GearAlignment.
 */
 
 namespace grip {
 
-GearAlignment::GearAlignment() {
+TapeAlignment::TapeAlignment() {
 }
 /**
 * Runs an iteration of the Pipeline and updates outputs.
@@ -13,20 +13,20 @@ GearAlignment::GearAlignment() {
 * Sources need to be set before calling this method. 
 *
 */
-void GearAlignment::Process(cv::Mat source0){
+void TapeAlignment::Process(cv::Mat source0){
 	//Step HSV_Threshold0:
 	//input
 	cv::Mat hsvThresholdInput = source0;
-	double hsvThresholdHue[] = {0.0, 180.0};
+	double hsvThresholdHue[] = {70.0, 100.0};
 	double hsvThresholdSaturation[] = {0.0, 255.0};
-	double hsvThresholdValue[] = {200, 255.0};
+	double hsvThresholdValue[] = {127.0, 255.0};
 	hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, this->hsvThresholdOutput);
 	//Step CV_erode0:
 	//input
 	cv::Mat cvErodeSrc = hsvThresholdOutput;
 	cv::Mat cvErodeKernel;
 	cv::Point cvErodeAnchor(-1, -1);
-	double cvErodeIterations = 1.0;//2.0;  // default Double
+	double cvErodeIterations = 0.0;//1.0;//2.0;  // default Double
     int cvErodeBordertype = cv::BORDER_CONSTANT;
 	cv::Scalar cvErodeBordervalue(-1);
 	cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue, this->cvErodeOutput);
@@ -35,7 +35,7 @@ void GearAlignment::Process(cv::Mat source0){
 	cv::Mat cvDilateSrc = cvErodeOutput;
 	cv::Mat cvDilateKernel;
 	cv::Point cvDilateAnchor(-1, -1);
-	double cvDilateIterations = 2.0;  // default Double
+	double cvDilateIterations = 0.0;//2.0;  // default Double
     int cvDilateBordertype = cv::BORDER_CONSTANT;
 	cv::Scalar cvDilateBordervalue(-1);
 	cvDilate(cvDilateSrc, cvDilateKernel, cvDilateAnchor, cvDilateIterations, cvDilateBordertype, cvDilateBordervalue, this->cvDilateOutput);
@@ -72,35 +72,35 @@ void GearAlignment::Process(cv::Mat source0){
  * This method is a generated getter for the output of a HSV_Threshold.
  * @return Mat output from HSV_Threshold.
  */
-cv::Mat* GearAlignment::gethsvThresholdOutput(){
+cv::Mat* TapeAlignment::gethsvThresholdOutput(){
 	return &(this->hsvThresholdOutput);
 }
 /**
  * This method is a generated getter for the output of a CV_erode.
  * @return Mat output from CV_erode.
  */
-cv::Mat* GearAlignment::getcvErodeOutput(){
+cv::Mat* TapeAlignment::getcvErodeOutput(){
 	return &(this->cvErodeOutput);
 }
 /**
  * This method is a generated getter for the output of a CV_dilate.
  * @return Mat output from CV_dilate.
  */
-cv::Mat* GearAlignment::getcvDilateOutput(){
+cv::Mat* TapeAlignment::getcvDilateOutput(){
 	return &(this->cvDilateOutput);
 }
 /**
  * This method is a generated getter for the output of a Find_Contours.
  * @return ContoursReport output from Find_Contours.
  */
-std::vector<std::vector<cv::Point> >* GearAlignment::getfindContoursOutput(){
+std::vector<std::vector<cv::Point> >* TapeAlignment::getfindContoursOutput(){
 	return &(this->findContoursOutput);
 }
 /**
  * This method is a generated getter for the output of a Filter_Contours.
  * @return ContoursReport output from Filter_Contours.
  */
-std::vector<std::vector<cv::Point> >* GearAlignment::getfilterContoursOutput(){
+std::vector<std::vector<cv::Point> >* TapeAlignment::getfilterContoursOutput(){
 	return &(this->filterContoursOutput);
 }
 	/**
@@ -112,7 +112,7 @@ std::vector<std::vector<cv::Point> >* GearAlignment::getfilterContoursOutput(){
 	 * @param val The min and max value.
 	 * @param output The image in which to store the output.
 	 */
-	void GearAlignment::hsvThreshold(cv::Mat &input, double hue[], double sat[], double val[], cv::Mat &out) {
+	void TapeAlignment::hsvThreshold(cv::Mat &input, double hue[], double sat[], double val[], cv::Mat &out) {
 		cv::cvtColor(input, out, cv::COLOR_BGR2HSV);
 		cv::inRange(out,cv::Scalar(hue[0], sat[0], val[0]), cv::Scalar(hue[1], sat[1], val[1]), out);
 	}
@@ -127,7 +127,7 @@ std::vector<std::vector<cv::Point> >* GearAlignment::getfilterContoursOutput(){
 	 * @param borderValue value to be used for a constant border.
 	 * @param dst Output Image.
 	 */
-	void GearAlignment::cvErode(cv::Mat &src, cv::Mat &kernel, cv::Point &anchor, double iterations, int borderType, cv::Scalar &borderValue, cv::Mat &dst) {
+	void TapeAlignment::cvErode(cv::Mat &src, cv::Mat &kernel, cv::Point &anchor, double iterations, int borderType, cv::Scalar &borderValue, cv::Mat &dst) {
 		cv::erode(src, dst, kernel, anchor, (int)iterations, borderType, borderValue);
 	}
 
@@ -141,7 +141,7 @@ std::vector<std::vector<cv::Point> >* GearAlignment::getfilterContoursOutput(){
 	 * @param borderValue value to be used for a constant border.
 	 * @param dst Output Image.
 	 */
-	void GearAlignment::cvDilate(cv::Mat &src, cv::Mat &kernel, cv::Point &anchor, double iterations, int borderType, cv::Scalar &borderValue, cv::Mat &dst) {
+	void TapeAlignment::cvDilate(cv::Mat &src, cv::Mat &kernel, cv::Point &anchor, double iterations, int borderType, cv::Scalar &borderValue, cv::Mat &dst) {
 		cv::dilate(src, dst, kernel, anchor, (int)iterations, borderType, borderValue);
 	}
 
@@ -152,7 +152,7 @@ std::vector<std::vector<cv::Point> >* GearAlignment::getfilterContoursOutput(){
 	 * @param externalOnly if only external contours are to be found.
 	 * @param contours vector of contours to put contours in.
 	 */
-	void GearAlignment::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours) {
+	void TapeAlignment::findContours(cv::Mat &input, bool externalOnly, std::vector<std::vector<cv::Point> > &contours) {
 		std::vector<cv::Vec4i> hierarchy;
 		contours.clear();
 		int mode = externalOnly ? cv::RETR_EXTERNAL : cv::RETR_LIST;
@@ -177,7 +177,7 @@ std::vector<std::vector<cv::Point> >* GearAlignment::getfilterContoursOutput(){
 	 * @param maxRatio maximum ratio of width to height.
 	 * @param output vector of filtered contours.
 	 */
-	void GearAlignment::filterContours(std::vector<std::vector<cv::Point> > &inputContours, double minArea, double minPerimeter, double minWidth, double maxWidth, double minHeight, double maxHeight, double solidity[], double maxVertexCount, double minVertexCount, double minRatio, double maxRatio, std::vector<std::vector<cv::Point> > &output) {
+	void TapeAlignment::filterContours(std::vector<std::vector<cv::Point> > &inputContours, double minArea, double minPerimeter, double minWidth, double maxWidth, double minHeight, double maxHeight, double solidity[], double maxVertexCount, double minVertexCount, double minRatio, double maxRatio, std::vector<std::vector<cv::Point> > &output) {
 		std::vector<cv::Point> hull;
 		output.clear();
 		for (std::vector<cv::Point> contour: inputContours) {

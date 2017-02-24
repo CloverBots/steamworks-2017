@@ -2,6 +2,7 @@
 #include "../RobotMap.h"
 #include "../CommandBase.h"
 #include "../Commands/OperateGearFromInput.h"
+#include "../FuncCommand.h"
 
 GearDropper::GearDropper() : Subsystem("GearDropper")
 {
@@ -12,12 +13,12 @@ GearDropper::GearDropper() : Subsystem("GearDropper")
 
 void GearDropper::InitDefaultCommand()
 {
-	//SetDefaultCommand(new OperateGearFromInput());
+	//SetDefaultCommand(new FuncCommand(std::bind(&GearDropper::PrintSwitchStatus, this), { this }));
 }
 
 void GearDropper::SetDoorDirection(Relay::Value direction)
 {
-	pSpike->Set(direction);
+	//pSpike->Set(direction); // TODO: RE-ENABLE THIS!!!!
 }
 
 Relay* GearDropper::GetSpike()
@@ -33,6 +34,11 @@ bool GearDropper::IsOpenTriggered()
 bool GearDropper::IsClosedTriggered()
 {
 	return !pClosedLimSwitch->Get();
+}
+
+void GearDropper::PrintSwitchStatus()
+{
+	std::cout << "Open: " << GearDropper::IsOpenTriggered() << std::endl << "Closed: " << GearDropper::IsClosedTriggered() << std::endl;
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

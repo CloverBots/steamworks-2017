@@ -10,8 +10,8 @@ void ToggleDoor::Initialize() {
 			CommandBase::gearDropper->IsOpenTriggered() ?
 					Relay::kForward : Relay::kReverse);
 
-	std::cout << (CommandBase::gearDropper->IsOpenTriggered() ?
-			"Opening...\n" : "Closing...\n");
+//	std::cout << (CommandBase::gearDropper->IsOpenTriggered() ?
+//			"Opening...\n" : "Closing...\n");
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -28,7 +28,7 @@ bool ToggleDoor::IsFinished() {
 
 // Called once after isFinished returns true
 void ToggleDoor::End() {
-	std::cout << "Finished.\n";
+	//std::cout << "Finished.\n";
 	CommandBase::gearDropper->SetDoorDirection(Relay::kOff);
 }
 

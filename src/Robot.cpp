@@ -96,7 +96,7 @@ public:
 //			frc::Scheduler::GetInstance()->SetEnabled(true);
 //			SmartDashboard::PutString("Enabled:", "True");
 //		}
-		CommandBase::oi->ProcessGearAlignment();
+
 		frc::Scheduler::GetInstance()->Run();
 	}
 

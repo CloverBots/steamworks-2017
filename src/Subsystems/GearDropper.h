@@ -9,6 +9,8 @@ private:
 	Relay* pSpike;
 	DigitalInput* pOpenLimSwitch;
 	DigitalInput* pClosedLimSwitch;
+
+	void PrintSwitchStatus();
 public:
 	GearDropper();
 	void InitDefaultCommand();

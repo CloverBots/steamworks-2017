@@ -14,7 +14,6 @@ CANPIDSource::CANPIDSource(CANTalon* pTalon, double range) : m_pTalon(pTalon), m
 
 CANPIDSource::~CANPIDSource()
 {
-	// TODO Auto-generated destructor stub
 }
 
 double CANPIDSource::PIDGet()

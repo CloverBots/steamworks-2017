@@ -6,6 +6,7 @@
 #include "Commands/LiftOn.h"
 #include "Commands/LiftOff.h"
 #include "Commands/Rotate.h"
+#include "FuncCommand.h"
 
 OI::OI()
 {
@@ -27,30 +28,45 @@ OI::OI()
 	m_pRightBumper->WhenReleased(new LiftOff());
 
 	m_pDriveAButton = new JoystickButton(m_pDriveStick, 1);
-	m_pDriveAButton->WhenPressed(new Rotate(-90));
+//	m_pDriveAButton->WhenPressed(new Rotate(-90));
 
 	m_pNetworkTable = NetworkTable::GetTable("GRIP/tape");
 
 	m_contours = std::vector<Contour>();
 
-	m_pGearAlignment = new grip::GearAlignment();
+	m_pGearAlignment = new grip::TapeAlignment();
+	m_pBoilerAlignment = new grip::TapeAlignment();
 
-	m_usbCamera = CameraServer::GetInstance()->StartAutomaticCapture(0);
-	m_usbCamera.SetResolution(CAMERA_X_RES, CAMERA_Y_RES);
-	m_usbCamera.SetExposureManual(16);
-	m_usbCamera.SetExposureHoldCurrent();
-	m_usbCamera.SetFPS(30);
+	m_gearCamera = /*cs::UsbCamera("cam0", 0);*/CameraServer::GetInstance()->StartAutomaticCapture(0);
+	m_gearCamera.SetResolution(CAMERA_X_RES, CAMERA_Y_RES);
+	m_gearCamera.SetExposureManual(16);
+	m_gearCamera.SetExposureHoldCurrent();
+	m_gearCamera.SetFPS(30);
 
-	m_pVisionRunner = new VisionRunner<grip::GearAlignment>(m_usbCamera, m_pGearAlignment,
+	m_boilerCamera = cs::UsbCamera("cam1", 1);
+	m_boilerCamera.SetResolution(CAMERA_X_RES, CAMERA_Y_RES);
+	m_boilerCamera.SetExposureManual(16);
+	m_boilerCamera.SetExposureHoldCurrent();
+	m_boilerCamera.SetFPS(30);
+
+	m_pGearVisionRunner = new VisionRunner<grip::TapeAlignment>(m_gearCamera, m_pGearAlignment,
 			std::bind(&OI::ProcessGearAlignment, this));
 
-	std::thread t(std::bind(&OI::GearAlignmentThread, this));
-	t.detach();
+	m_gearThread = std::thread(std::bind(&OI::GearAlignmentThread, this));
+	m_gearThread.detach();
+
+	m_pBoilerVisionRunner = new VisionRunner<grip::TapeAlignment>(m_boilerCamera, m_pBoilerAlignment,
+			std::bind(&OI::ProcessBoilerAlignment, this));
+
+	m_boilerThread = std::thread(std::bind(&OI::BoilerAlignmentThread, this));
+	m_boilerThread.detach();
 }
 
 void OI::ProcessGearAlignment()
 {
 	std::vector<std::vector<cv::Point>>* output = m_pGearAlignment->getfilterContoursOutput();
+
+	m_contourLock.lock();
 
 	m_contours.clear();
 
@@ -73,6 +89,25 @@ void OI::ProcessGearAlignment()
 
 		m_contours.push_back(c);
 	}
+
+	//std::cout << m_contours.size() << std::endl;
+
+	m_contourLock.unlock();
+}
+
+void OI::ProcessBoilerAlignment()
+{
+	//std::cout << "Boiler!\n";
+}
+
+void OI::GearAlignmentThread()
+{
+	m_pGearVisionRunner->RunForever();
+}
+
+void OI::BoilerAlignmentThread()
+{
+	m_pBoilerVisionRunner->RunForever();
 }
 
 cv::Point OI::GetGearCenter()
@@ -102,11 +137,6 @@ std::vector<OI::Contour> OI::GetGearContours()
 	return m_contours;
 }
 
-void OI::GearAlignmentThread()
-{
-	m_pVisionRunner->RunForever();
-}
-
 Joystick* OI::GetDriveStick()
 {
 	return m_pDriveStick;
@@ -117,7 +147,7 @@ Joystick* OI::GetOperatorStick()
 	return m_pOperatorStick;
 }
 
-grip::GearAlignment* OI::GetGearAlignment()
+grip::TapeAlignment* OI::GetGearAlignment()
 {
 	return m_pGearAlignment;
 }

@@ -9,6 +9,11 @@ AlignWithTape::AlignWithTape() : m_throttle(0), m_rotation(0), m_framesLost(0)
 void AlignWithTape::Initialize()
 {
 	CommandBase::pDriveSystem->Drive(0.0f, 0.0f, 0.0f);
+
+	m_throttle = 0.0f;
+	m_rotation = 0.0f;
+
+	//CommandBase::oi->SetCameraMode(OI::CameraMode::GEAR);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -43,7 +48,7 @@ bool AlignWithTape::IsFinished()
 // Called once after isFinished returns true
 void AlignWithTape::End()
 {
-
+	//CommandBase::oi->SetCameraMode(OI::CameraMode::NONE);
 }
 
 // Called when another command which requires one or more of the same
