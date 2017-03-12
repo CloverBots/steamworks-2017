@@ -18,7 +18,7 @@ void TapeAlignment::Process(cv::Mat source0){
 	//input
 	cv::Mat hsvThresholdInput = source0;
 	double hsvThresholdHue[] = {70.0, 100.0};
-	double hsvThresholdSaturation[] = {0.0, 255.0};
+	double hsvThresholdSaturation[] = {25.0, 255.0};
 	double hsvThresholdValue[] = {127.0, 255.0};
 	hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, this->hsvThresholdOutput);
 	//Step CV_erode0:
@@ -26,7 +26,7 @@ void TapeAlignment::Process(cv::Mat source0){
 	cv::Mat cvErodeSrc = hsvThresholdOutput;
 	cv::Mat cvErodeKernel;
 	cv::Point cvErodeAnchor(-1, -1);
-	double cvErodeIterations = 0.0;//1.0;//2.0;  // default Double
+	double cvErodeIterations = 1.0;//2.0;  // default Double
     int cvErodeBordertype = cv::BORDER_CONSTANT;
 	cv::Scalar cvErodeBordervalue(-1);
 	cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue, this->cvErodeOutput);
@@ -35,7 +35,7 @@ void TapeAlignment::Process(cv::Mat source0){
 	cv::Mat cvDilateSrc = cvErodeOutput;
 	cv::Mat cvDilateKernel;
 	cv::Point cvDilateAnchor(-1, -1);
-	double cvDilateIterations = 0.0;//2.0;  // default Double
+	double cvDilateIterations = 1.0;//2.0;  // default Double
     int cvDilateBordertype = cv::BORDER_CONSTANT;
 	cv::Scalar cvDilateBordervalue(-1);
 	cvDilate(cvDilateSrc, cvDilateKernel, cvDilateAnchor, cvDilateIterations, cvDilateBordertype, cvDilateBordervalue, this->cvDilateOutput);

@@ -41,6 +41,7 @@ public:
 	std::vector<double> GetContourValues(std::string value);
 	std::vector<Contour> GetGearContours();
 	cv::Point GetGearCenter();
+	cv::Point GetBoilerCenter();
 
 private:
 
@@ -51,6 +52,7 @@ private:
 	JoystickButton* m_pAButton;
 	JoystickButton* m_pYButton;
 	JoystickButton* m_pRightBumper;
+	JoystickButton* m_pLeftBumper;
 
 	JoystickButton* m_pDriveAButton;
 
@@ -66,19 +68,22 @@ private:
 	std::thread m_gearThread;
 	std::thread m_boilerThread;
 
-	std::thread m_visionThread;
-
 	std::shared_ptr<NetworkTable> m_pNetworkTable;
 
-	std::vector<Contour> m_contours;
+	std::vector<Contour> m_gearContours;
+	std::vector<Contour> m_boilerContours;
 
-	std::mutex m_contourLock;
+	std::mutex m_gearLock;
+	std::mutex m_boilerLock;
 
 	void GearAlignmentThread();
 	void BoilerAlignmentThread();
 
 	void ProcessGearAlignment();
 	void ProcessBoilerAlignment();
+
+	std::vector<Contour> GenerateContours(std::vector<std::vector<cv::Point>>* points);
+	cv::Point GetCenterContours(std::vector<Contour> contours);
 };
 
 #endif

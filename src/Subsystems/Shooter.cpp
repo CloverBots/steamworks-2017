@@ -22,7 +22,7 @@ void Shooter::ShooterWheel(float speed)
 }
 
 int Shooter::GetShooterEncVel(){
-	//std::cout << Shooting_wheel->GetEncVel();
+	std::cout << Shooting_wheel->GetEncVel();
 	return Shooting_wheel->GetEncVel();
 }
 

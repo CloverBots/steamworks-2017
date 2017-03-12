@@ -1,12 +1,12 @@
 #include "Rotate.h"
 
-Rotate::Rotate(double angle) : m_targetAngle(angle), m_initAngle(0) {
+Rotate::Rotate(double angle, bool relative) : m_targetAngle(angle), m_initAngle(0), m_relative(relative) {
 	Requires(CommandBase::pDriveSystem.get());
 }
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
-	m_initAngle = CommandBase::pDriveSystem->GetGyroAngle();
+	m_initAngle = m_relative ? CommandBase::pDriveSystem->GetGyroAngle() : 0.0;
 }
 
 // Called repeatedly when this Command is scheduled to run

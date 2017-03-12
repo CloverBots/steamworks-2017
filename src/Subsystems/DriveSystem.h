@@ -9,7 +9,7 @@ class DriveSystem: public Subsystem
 private:
 
 	RobotDrive* m_pRobotDrive;
-	ADXRS450_Gyro* m_gyro;
+	AnalogGyro* m_gyro;
 
 public:
 	DriveSystem();

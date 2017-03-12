@@ -1,6 +1,7 @@
 #include "AlignWithTape.h"
 
-AlignWithTape::AlignWithTape() : m_throttle(0), m_rotation(0), m_framesLost(0)
+AlignWithTape::AlignWithTape(float timeoutInSeconds) : m_maxFrames((int)(timeoutInSeconds * m_UPDATE_RATE)),
+	m_throttle(0), m_rotation(0), m_totalFrames(0), m_framesLost(0)
 {
 	Requires(CommandBase::pDriveSystem.get());
 }
@@ -13,7 +14,10 @@ void AlignWithTape::Initialize()
 	m_throttle = 0.0f;
 	m_rotation = 0.0f;
 
-	//CommandBase::oi->SetCameraMode(OI::CameraMode::GEAR);
+	m_totalFrames = 0;
+	m_framesLost = 0;
+
+	std::cout << "Aligning\n";
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,18 +41,22 @@ void AlignWithTape::Execute()
 			m_throttle,
 			0.0f,
 			m_rotation);
+
+	m_totalFrames++;
+
+	std::cout << CommandBase::oi->GetGearContours().size() << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AlignWithTape::IsFinished()
 {
-	return m_framesLost > m_TARGET_LOST_TIMEOUT;
+	return m_totalFrames > m_maxFrames || m_framesLost > m_TARGET_LOST_TIMEOUT;
 }
 
 // Called once after isFinished returns true
 void AlignWithTape::End()
 {
-	//CommandBase::oi->SetCameraMode(OI::CameraMode::NONE);
+	std::cout << "Done\n";
 }
 
 // Called when another command which requires one or more of the same

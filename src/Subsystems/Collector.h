@@ -7,6 +7,9 @@
 class Collector : public Subsystem {
 private:
 	Talon* collectorTalon;
+
+	const float m_SPEED_SCALE = 0.5f;
+
 public:
 	Collector();
 	void InitDefaultCommand();

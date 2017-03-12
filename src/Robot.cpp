@@ -1,6 +1,9 @@
 #include <memory>
 
 #include <Commands/Command.h>
+#include <Commands/PlaceGearCenter.h>
+#include <Commands/PlaceGearLeft.h>
+#include <Commands/PlaceGearRight.h>
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>
 #include <LiveWindow/LiveWindow.h>
@@ -9,15 +12,19 @@
 
 #include "CommandBase.h"
 #include "Commands/DriveForward.h"
-#include "Commands/PlaceGear.h"
 
-class Robot: public frc::IterativeRobot {
+class Robot : public frc::IterativeRobot {
 public:
 	void RobotInit() override {
 		CommandBase::Init();
-		chooser.AddDefault("Drive Forward", new DriveForward());
-		chooser.AddObject("Place Gear", new PlaceGear());
-		// chooser.AddObject("My Auto", new MyAutoCommand());
+		chooser.AddDefault("Do Nothing", 0);
+		chooser.AddObject("Drive Forward", new DriveForward());
+		chooser.AddObject("Place Gear (Center)", new PlaceGearCenter());
+		chooser.AddObject("Place Gear (Left)", new PlaceGearLeft(false));
+		chooser.AddObject("Place Gear (Left, Boiler)", new PlaceGearLeft(true));
+		chooser.AddObject("Place Gear (Right)", new PlaceGearRight(false));
+		chooser.AddObject("Place Gear (Right, Boiler)", new PlaceGearRight(true));
+
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
 	}
 

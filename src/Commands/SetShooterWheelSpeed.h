@@ -7,6 +7,9 @@
 class SetShooterWheelSpeed: public CommandBase
 {
 private:
+
+	const int m_MIN_SPEED = 34000;
+
 	float speed;
 public:
 	SetShooterWheelSpeed(float speed);

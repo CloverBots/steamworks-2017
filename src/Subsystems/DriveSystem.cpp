@@ -15,7 +15,7 @@ DriveSystem::DriveSystem() :
 	m_pRobotDrive->SetInvertedMotor(RobotDrive::MotorType::kRearLeftMotor, true);
 	m_pRobotDrive->SetSafetyEnabled(false);
 
-	m_gyro = new ADXRS450_Gyro(SPI::Port::kOnboardCS0);//new AnalogGyro(0);
+	m_gyro = new AnalogGyro(0);
 	m_gyro->Calibrate();
 }
 

@@ -1,12 +1,29 @@
 #include "LiftSubsystem.h"
 #include "../RobotMap.h"
+#include <WPILib.h>
 
 LiftSubsystem::LiftSubsystem() : Subsystem("LiftSubsystem")
 {
 	m_pLiftMotor = new Relay(RobotMap::LIFT_SPIKE);
 }
 
-void LiftSubsystem::setMotor(bool b)
+void LiftSubsystem::Set(Relay::Value value)
 {
-	m_pLiftMotor->Set(b ? Relay::kForward : Relay::kOff);
+//	switch (value)
+//	{
+//	case Relay::kForward:
+//		std::cout << "Forward\n";
+//		break;
+//	case Relay::kReverse:
+//		std::cout << "Reverse\n";
+//		break;
+//	case Relay::kOff:
+//		std::cout << "Off\n";
+//		break;
+//	default:
+//		std::cout << "Something else\n";
+//		break;
+//	}
+
+	m_pLiftMotor->Set(value);
 }

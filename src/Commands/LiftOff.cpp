@@ -8,5 +8,5 @@ LiftOff::LiftOff() {
 
 void LiftOff::Initialize()
 {
-	liftSubsystem->setMotor(false);
+	liftSubsystem->Set(Relay::kOff);
 }

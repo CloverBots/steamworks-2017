@@ -10,6 +10,6 @@ private:
 	Relay* m_pLiftMotor;
 public:
 	LiftSubsystem();
-	void setMotor(bool b);
+	void Set(Relay::Value value);
 };
 #endif

@@ -16,6 +16,6 @@ void Collector::InitDefaultCommand()
 
 void Collector::SetCollectorSpeed(float speed)
 {
-	collectorTalon->Set(speed);
+	collectorTalon->Set(speed * m_SPEED_SCALE);
 }
 

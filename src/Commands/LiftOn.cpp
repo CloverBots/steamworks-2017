@@ -8,5 +8,5 @@ LiftOn::LiftOn() {
 
 void LiftOn::Initialize()
 {
-	liftSubsystem->setMotor(true);
+	liftSubsystem->Set(Relay::kForward);
 }

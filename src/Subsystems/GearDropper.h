@@ -10,6 +10,8 @@ private:
 	DigitalInput* pOpenLimSwitch;
 	DigitalInput* pClosedLimSwitch;
 
+	bool m_open;
+
 	void PrintSwitchStatus();
 public:
 	GearDropper();
@@ -21,6 +23,9 @@ public:
 	Relay* GetSpike();
 	bool IsOpenTriggered();
 	bool IsClosedTriggered();
+
+	void SetOpen(bool open);
+	bool IsOpen();
 };
 
 #endif  // GearDropper_H
