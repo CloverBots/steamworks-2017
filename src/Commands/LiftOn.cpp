@@ -8,5 +8,5 @@ LiftOn::LiftOn() {
 
 void LiftOn::Initialize()
 {
-	liftSubsystem->Set(Relay::kForward);
+	liftSubsystem->Set(-1.0);
 }

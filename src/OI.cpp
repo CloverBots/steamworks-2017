@@ -28,8 +28,8 @@ OI::OI()
 	m_pRightBumper->WhenReleased(new FuncCommand(std::bind(&LiftSubsystem::Set, CommandBase::liftSubsystem.get(), Relay::kOff), { CommandBase::liftSubsystem.get() }));
 
 	m_pLeftBumper = new JoystickButton(m_pOperatorStick, 5);
-	m_pLeftBumper->WhenPressed(new FuncCommand(std::bind(&LiftSubsystem::Set, CommandBase::liftSubsystem.get(), Relay::kForward), { CommandBase::liftSubsystem.get() }));
-	m_pLeftBumper->WhenReleased(new FuncCommand(std::bind(&LiftSubsystem::Set, CommandBase::liftSubsystem.get(), Relay::kOff), { CommandBase::liftSubsystem.get() }));
+	m_pLeftBumper->WhenPressed(new FuncCommand(std::bind(&LiftSubsystem::Set, CommandBase::liftSubsystem.get(), 1.0/*Relay::kForward*/), { CommandBase::liftSubsystem.get() }));
+	m_pLeftBumper->WhenReleased(new FuncCommand(std::bind(&LiftSubsystem::Set, CommandBase::liftSubsystem.get(), 0.0/*Relay::kOff*/), { CommandBase::liftSubsystem.get() }));
 //	m_pRightBumper->WhenPressed(new LiftOn());
 //	m_pRightBumper->WhenReleased(new LiftOff());
 

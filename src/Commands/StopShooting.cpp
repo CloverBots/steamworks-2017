@@ -10,7 +10,8 @@ StopShooting::StopShooting()
 // Called just before this Command runs the first time
 void StopShooting::Initialize()
 {
-	CommandBase::shooterSubsystem->ShooterWheel(0.0f);
+	//CommandBase::shooterSubsystem->SetPIDEnabled(false);
+	CommandBase::shooterSubsystem->SetShooterMotor(false);
 	CommandBase::shooterSubsystem->StagingWheel(0.0f);
 	CommandBase::shooterSubsystem->BinSpeed(0.0f);
 }

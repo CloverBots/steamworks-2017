@@ -7,9 +7,10 @@
 
 class LiftSubsystem : public Subsystem {
 private:
-	Relay* m_pLiftMotor;
+//	Relay* m_pLiftMotor;
+	Talon* m_pLiftMotor;
 public:
 	LiftSubsystem();
-	void Set(Relay::Value value);
+	void Set(double speed);
 };
 #endif

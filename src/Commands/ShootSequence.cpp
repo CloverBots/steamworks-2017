@@ -1,10 +1,11 @@
+#include <Commands/EnableShooter.h>
 #include "ShootSequence.h"
-#include "SetShooterWheelSpeed.h"
 #include "SetStageingWheelSpeed.h"
 #include "SetBinSpeed.h"
+
 ShootSequence::ShootSequence()
 {
-	AddSequential(new SetShooterWheelSpeed(1.0f));
+	AddSequential(new EnableShooter());
 	AddSequential(new SetStageingWheelSpeed(-1.0f));
-	AddSequential(new SetBinSpeed(-1.0f));
+	AddSequential(new SetBinSpeed(-0.5f));
 }

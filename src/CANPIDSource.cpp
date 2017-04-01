@@ -18,6 +18,6 @@ CANPIDSource::~CANPIDSource()
 
 double CANPIDSource::PIDGet()
 {
-	std::cout << (double)-m_pTalon->GetEncVel() <</* / m_range << */std::endl;
+	std::cout << (double)-m_pTalon->GetEncVel() / m_range << std::endl;
 	return (double)-m_pTalon->GetEncVel() / m_range;
 }

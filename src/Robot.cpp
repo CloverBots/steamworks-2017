@@ -4,6 +4,7 @@
 #include <Commands/PlaceGearCenter.h>
 #include <Commands/PlaceGearLeft.h>
 #include <Commands/PlaceGearRight.h>
+#include <Commands/ShootSequence.h>
 #include <Commands/Scheduler.h>
 #include <IterativeRobot.h>
 #include <LiveWindow/LiveWindow.h>
@@ -18,6 +19,7 @@ public:
 	void RobotInit() override {
 		CommandBase::Init();
 		chooser.AddDefault("Do Nothing", 0);
+		chooser.AddObject("Shoot Immediately", new ShootSequence());
 		chooser.AddObject("Drive Forward", new DriveForward());
 		chooser.AddObject("Place Gear (Center)", new PlaceGearCenter());
 		chooser.AddObject("Place Gear (Left)", new PlaceGearLeft(false));
@@ -26,6 +28,10 @@ public:
 		chooser.AddObject("Place Gear (Right, Boiler)", new PlaceGearRight(true));
 
 		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+//		frc::SmartDashboard::PutNumber("Shooter Speed", 0.0);
+//		frc::SmartDashboard::PutNumber("Shooter P", 0.0);
+//		frc::SmartDashboard::PutNumber("Shooter I", 0.0);
+//		frc::SmartDashboard::PutNumber("Shooter D", 0.0);
 	}
 
 	/**
@@ -55,7 +61,7 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		CommandBase::shooterSubsystem->SetPIDEnabled(true);
+		//CommandBase::shooterSubsystem->SetPIDEnabled(true);
 		CommandBase::pDriveSystem->ResetGyro();
 		/* std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
 		if (autoSelected == "My Auto") {
@@ -77,7 +83,7 @@ public:
 	}
 
 	void TeleopInit() override {
-		CommandBase::shooterSubsystem->SetPIDEnabled(true);
+		CommandBase::shooterSubsystem->SetPIDEnabled(false);
 		CommandBase::pDriveSystem->ResetGyro();
 
 		//SmartDashboard::PutString("Enabled:", "True");

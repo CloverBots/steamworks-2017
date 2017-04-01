@@ -4,15 +4,14 @@
 #include "../CommandBase.h"
 #include "WPILib.h"
 
-class SetShooterWheelSpeed: public CommandBase
+class EnableShooter: public CommandBase
 {
 private:
 
-	const int m_MIN_SPEED = 34000;
+	const float m_SPEED_THRESHOLD = 0.1f;
 
-	float speed;
 public:
-	SetShooterWheelSpeed(float speed);
+	EnableShooter();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

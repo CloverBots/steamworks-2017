@@ -4,11 +4,12 @@
 
 LiftSubsystem::LiftSubsystem() : Subsystem("LiftSubsystem")
 {
-	m_pLiftMotor = new Relay(RobotMap::LIFT_SPIKE);
+	m_pLiftMotor = new Talon(RobotMap::LIFT_TALON);//new Relay(RobotMap::LIFT_SPIKE);
 }
 
-void LiftSubsystem::Set(Relay::Value value)
+void LiftSubsystem::Set(double speed)
 {
+	m_pLiftMotor->Set(speed);
 //	switch (value)
 //	{
 //	case Relay::kForward:
@@ -25,5 +26,5 @@ void LiftSubsystem::Set(Relay::Value value)
 //		break;
 //	}
 
-	m_pLiftMotor->Set(value);
+	//m_pLiftMotor->Set(value);
 }

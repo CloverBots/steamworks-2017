@@ -11,24 +11,33 @@ class Shooter: public Subsystem
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	float m_P = 1.5f;
-	float m_I = 0.75f;;
-	float m_D = 0.0f;
-	const double m_ENCODER_RATE = 1400;
+	const float m_P = 0.75f;
+	const float m_I = 0.175f;
+	const float m_D = 0.0f;
+
+	float m_shooterTargetSpeed;
+
 	Talon* Stageing_wheel;
 	Talon* Bin;
 	CANTalon* Shooting_wheel;
-	//CANPIDSource* ShooterSource;
-	//PIDController* ShooterController;
+	CANPIDSource* ShooterSource;
+	PIDController* ShooterController;
 
 public:
+	const double m_ENCODER_RATE = 34000;
+
 	Shooter();
+
+	float GetShooterSpeed();
 	void StagingWheel(float speed);
-	void ShooterWheel(float speed);
+	void SetShooterMotor(bool enabled);
 	int GetShooterEncVel();
+	float GetShooterTargetSpeed();
 	void BinSpeed(float speed);
 	void SetPIDEnabled(bool enabled);
 	void SetPID(float p, float i, float d);
+	void UpdateFromSmartDashboard();
+
 	void InitDefaultCommand();
 };
 

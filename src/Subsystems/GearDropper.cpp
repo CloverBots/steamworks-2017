@@ -6,7 +6,8 @@
 
 GearDropper::GearDropper() : Subsystem("GearDropper"), m_open(false)
 {
-	pSpike = new Relay(RobotMap::GEAR_SPIKE);
+	pTalon = new Talon(RobotMap::GEAR_TALON);
+	//pSpike = new Relay(RobotMap::GEAR_SPIKE);
 	pOpenLimSwitch = new DigitalInput(RobotMap::GEAR_OPEN_SWITCH);
 	pClosedLimSwitch = new DigitalInput(RobotMap::GEAR_CLOSED_SWITCH);
 }
@@ -18,12 +19,19 @@ void GearDropper::InitDefaultCommand()
 
 void GearDropper::SetDoorDirection(Relay::Value direction)
 {
-	pSpike->Set(direction);
-}
-
-Relay* GearDropper::GetSpike()
-{
-	return pSpike;
+	switch (direction)
+	{
+	case Relay::Value::kForward:
+		pTalon->Set(-m_speed);
+		break;
+	case Relay::Value::kReverse:
+		pTalon->Set(m_speed);
+		break;
+	default:
+		pTalon->Set(0.0f);
+		break;
+	}
+	//pSpike->Set(direction);
 }
 
 bool GearDropper::IsOpenTriggered()

@@ -6,11 +6,13 @@
 
 class GearDropper : public Subsystem {
 private:
-	Relay* pSpike;
+	//Relay* pSpike;
+	Talon* pTalon;
 	DigitalInput* pOpenLimSwitch;
 	DigitalInput* pClosedLimSwitch;
 
 	bool m_open;
+	const float m_speed = 0.8f;//0.75f;
 
 	void PrintSwitchStatus();
 public:
@@ -20,7 +22,6 @@ public:
 	void CloseDoor();
 	void SetDoorDirection(Relay::Value direction);
 
-	Relay* GetSpike();
 	bool IsOpenTriggered();
 	bool IsClosedTriggered();
 

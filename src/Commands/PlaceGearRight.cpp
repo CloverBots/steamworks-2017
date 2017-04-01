@@ -10,7 +10,7 @@ PlaceGearRight::PlaceGearRight(bool strafeToBoiler) {
 	Requires(CommandBase::gearDropper.get());
 
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), 0.5f, 0.0f, 0.0f)));
-	AddSequential(new FuncCommand(std::bind(&Wait, 0.9/*1.2*//*1.25*/)));
+	AddSequential(new FuncCommand(std::bind(&Wait, 1.1/*1.15*//*0.9*//*1.2*//*1.25*/)));
 	AddSequential(new Rotate(-50, false));
 	AddSequential(new AlignWithTape(2.0));
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), 0.125f, 0.0f, 0.0f)));

@@ -8,5 +8,5 @@ LiftOff::LiftOff() {
 
 void LiftOff::Initialize()
 {
-	liftSubsystem->Set(Relay::kOff);
+	liftSubsystem->Set(0.0);
 }
