@@ -3,7 +3,7 @@
 #include "../FuncCommand.h"
 
 Shooter::Shooter() :
-		Subsystem("ShooterSubsystem"), m_shooterTargetSpeed(0.75f) // 0.65?
+		Subsystem("ShooterSubsystem"), m_shooterTargetSpeed(0.75f) // 0.7
 {
 	Stageing_wheel = new Talon(RobotMap::STAGING_MOTOR);
 	Bin = new Talon(RobotMap::BIN_MOTOR);
@@ -21,7 +21,8 @@ void Shooter::SetShooterMotor(bool enabled)
 {
 	SetPIDEnabled(enabled);
 	ShooterController->SetSetpoint(enabled ? m_shooterTargetSpeed : 0.0f);
-	//Shooting_wheel->Set(speed);
+	//std::cout << ShooterController->GetSetpoint() << std::endl;
+	//Shooting_wheel->Set(enabled ? m_shooterTargetSpeed : 0.0f);
 }
 
 int Shooter::GetShooterEncVel(){
@@ -66,10 +67,11 @@ void Shooter::SetPID(float p, float i, float d)
 
 void Shooter::UpdateFromSmartDashboard()
 {
-	SetPID(
-			(float)SmartDashboard::GetNumber("Shooter P", 0.0),
-			(float)SmartDashboard::GetNumber("Shooter I", 0.0),
-			(float)SmartDashboard::GetNumber("Shooter D", 0.0));
-
-	m_shooterTargetSpeed = (float)SmartDashboard::GetNumber("Shooter Speed", 0.0);
+	std::cout << Shooting_wheel->GetEncVel() << std::endl;
+//	SetPID(
+//			(float)SmartDashboard::GetNumber("Shooter P", 0.0),
+//			(float)SmartDashboard::GetNumber("Shooter I", 0.0),
+//			(float)SmartDashboard::GetNumber("Shooter D", 0.0));
+//
+//	m_shooterTargetSpeed = (float)SmartDashboard::GetNumber("Shooter Speed", 0.0);
 }

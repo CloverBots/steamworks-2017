@@ -17,9 +17,9 @@ void TapeAlignment::Process(cv::Mat source0){
 	//Step HSV_Threshold0:
 	//input
 	cv::Mat hsvThresholdInput = source0;
-	double hsvThresholdHue[] = {70.0, 100.0};
+	double hsvThresholdHue[] = {60.0, 110.0}/*{70.0, 100.0}*/;
 	double hsvThresholdSaturation[] = {25.0, 255.0};
-	double hsvThresholdValue[] = {127.0, 255.0};
+	double hsvThresholdValue[] = {95.0, 255.0}/*{127.0, 255.0}*/;
 	hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, this->hsvThresholdOutput);
 	//Step CV_erode0:
 	//input

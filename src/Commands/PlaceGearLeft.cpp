@@ -12,12 +12,12 @@ PlaceGearLeft::PlaceGearLeft(bool strafeToBoiler) {
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), 0.5f, 0.0f, 0.0f)));
 	AddSequential(new FuncCommand(std::bind(&Wait, 1.1/*1.15*//*0.9*//*1.2*//*1.25*/)));
 	AddSequential(new Rotate(50, false));
-	AddSequential(new AlignWithTape(2.0));
+	AddSequential(new AlignWithTape(0.5f, 2.0f, AlignWithTape::AlignDirection::CW));
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), 0.125f, 0.0f, 0.0f)));
 	AddSequential(new FuncCommand(std::bind(&Wait, 1.0)));
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), 0.0f, 0.0f, 0.0f)));
 	AddSequential(new ToggleDoor());
-	AddSequential(new FuncCommand(std::bind(&Wait, 1.0)));
+	AddSequential(new FuncCommand(std::bind(&Wait, 0.5)));
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), -0.25f, 0.0f, 0.0f)));
 	AddSequential(new FuncCommand(std::bind(&Wait, 0.75/*1.0*/)));
 	AddSequential(new FuncCommand(std::bind(&DriveSystem::Drive, CommandBase::pDriveSystem.get(), 0.0f, 0.0f, 0.0f)));

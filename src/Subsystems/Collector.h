@@ -8,7 +8,7 @@ class Collector : public Subsystem {
 private:
 	Talon* collectorTalon;
 
-	const float m_SPEED_SCALE = 0.5f;
+	const float m_SPEED_SCALE = 0.9f;//0.5f;
 
 public:
 	Collector();

@@ -12,7 +12,7 @@ private:
 	DigitalInput* pClosedLimSwitch;
 
 	bool m_open;
-	const float m_speed = 0.8f;//0.75f;
+	const float m_speed = 0.9f;//0.75f;
 
 	void PrintSwitchStatus();
 public:

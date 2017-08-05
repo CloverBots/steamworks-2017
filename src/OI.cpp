@@ -14,7 +14,7 @@ OI::OI()
 	m_pOperatorStick = new Joystick(1);
 
 	m_pXButton = new JoystickButton(m_pDriveStick, 3);
-	m_pXButton->WhileHeld(new AlignWithTape(10));
+	//m_pXButton->WhileHeld(new AlignWithTape(10));
 
 	m_pAButton = new JoystickButton(m_pOperatorStick, 1);
 	m_pAButton->WhenPressed(new ShootSequence());
@@ -43,17 +43,17 @@ OI::OI()
 	m_pGearAlignment = new grip::TapeAlignment();
 	m_pBoilerAlignment = new grip::TapeAlignment();
 
-	m_gearCamera = /** /cs::UsbCamera("cam0", 0);/**//**/CameraServer::GetInstance()->StartAutomaticCapture(1)/**/;
+	m_gearCamera = /** /cs::UsbCamera("cam0", 0);/**//**/CameraServer::GetInstance()->StartAutomaticCapture(0)/**/;
 	m_gearCamera.SetResolution(CAMERA_X_RES, CAMERA_Y_RES);
 	m_gearCamera.SetExposureManual(16);
 	m_gearCamera.SetExposureHoldCurrent();
 	m_gearCamera.SetFPS(30);
 
-	m_boilerCamera = cs::UsbCamera("cam0", 0);
-	m_boilerCamera.SetResolution(CAMERA_X_RES, CAMERA_Y_RES);
-	m_boilerCamera.SetExposureManual(16);
-	m_boilerCamera.SetExposureHoldCurrent();
-	m_boilerCamera.SetFPS(30);
+//	m_boilerCamera = cs::UsbCamera("cam0", 0);
+//	m_boilerCamera.SetResolution(CAMERA_X_RES, CAMERA_Y_RES);
+//	m_boilerCamera.SetExposureManual(16);
+//	m_boilerCamera.SetExposureHoldCurrent();
+//	m_boilerCamera.SetFPS(30);
 
 	m_pGearVisionRunner = new VisionRunner<grip::TapeAlignment>(m_gearCamera, m_pGearAlignment,
 			std::bind(&OI::ProcessGearAlignment, this));
@@ -61,11 +61,11 @@ OI::OI()
 	m_gearThread = std::thread(std::bind(&OI::GearAlignmentThread, this));
 	m_gearThread.detach();
 
-	m_pBoilerVisionRunner = new VisionRunner<grip::TapeAlignment>(m_boilerCamera, m_pBoilerAlignment,
-			std::bind(&OI::ProcessBoilerAlignment, this));
-
-	m_boilerThread = std::thread(std::bind(&OI::BoilerAlignmentThread, this));
-	m_boilerThread.detach();
+//	m_pBoilerVisionRunner = new VisionRunner<grip::TapeAlignment>(m_boilerCamera, m_pBoilerAlignment,
+//			std::bind(&OI::ProcessBoilerAlignment, this));
+//
+//	m_boilerThread = std::thread(std::bind(&OI::BoilerAlignmentThread, this));
+//	m_boilerThread.detach();
 }
 
 void OI::ProcessGearAlignment()
